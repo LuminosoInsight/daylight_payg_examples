@@ -12,25 +12,7 @@
 
 import argparse
 import getpass
-import requests
-
-payg_url = 'http://44.202.215.50/'
-myobj = {'somekey': 'somevalue'}
-
-
-def get_daylight_payg_token(username, password):
-    print("getting token")
-    req_body = {
-        'email': username,
-        'description': 'api token',
-        'password': password
-    }
-    resp = requests.post(
-        payg_url+"api/v5/payg/tokens", 
-        json=req_body,
-        headers={'user-agent': 'payg-example', 
-                 'Content-Type': 'application/json'})
-    return resp.text
+import paygsdk
 
 
 def main():
@@ -43,7 +25,8 @@ def main():
     username = input("Enter username: ")
     password = getpass.getpass("Enter password: ")
 
-    resp = get_daylight_payg_token(username, password)
+    client = paygsdk.LumiPaygSdk()
+    resp = client.get_token(username, password)
     print(f"resp: {resp}")
 
 
