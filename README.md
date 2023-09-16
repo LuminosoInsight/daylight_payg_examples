@@ -14,3 +14,4 @@ on AWS. You must first sign up for the [free offering on AWS Marketplace](https:
 
 Upon registration you setup a a username and passwork. You use that username and password to generate a token which can then be used in the the api calls.
 
+The 
