@@ -1,4 +1,5 @@
 
+import json
 import requests
 
 
@@ -47,24 +48,53 @@ class LumiPaygSdk:
                      'Authorization': 'Token '+self.token})
 
         return resp.text
-    
+
     def create_project(self, project_name, 
-                       language, description="", 
+                       language, description="",
                        workspace_id=None):
-        req_body = {'name': project_name, 
+        req_body = {'name': project_name,
                     'language': language,
                     'description': description
                     }
 
         if workspace_id:
-            req_body['workspace_id'] = workspace_id         
+            req_body['workspace_id'] = workspace_id
 
         print("calling get_projects")
         resp = requests.post(
-            self.api_url+"projects", 
+            self.api_url+"projects",
             json=req_body,
             headers={'user-agent': self.useragent, 
                      'Content-Type': 'application/json',
                      'Authorization': 'Token '+self.token})
         print(f"resp: {resp}")
         return resp.text
+
+    def upload(self, project_id, docs):
+        req_body = {'docs': docs
+                    }
+
+        print("calling upload")
+        resp = requests.post(
+            f"{self.api_url}projects/{project_id}/upload", 
+            json=req_body,
+            headers={'user-agent': self.useragent, 
+                     'Content-Type': 'application/json',
+                     'Authorization': 'Token '+self.token})
+        # print(f"upload resp: {resp.text}")
+        return resp.text
+
+    def build(self, project_id, skip_sentiment_build=False):
+        req_body = {}
+        if skip_sentiment_build:
+            req_body['skip_sentiment']: skip_sentiment_build
+        
+        resp = requests.post(
+            f"{self.api_url}projects/{project_id}/build", 
+            json=req_body,
+            headers={'user-agent': self.useragent, 
+                     'Content-Type': 'application/json',
+                     'Authorization': 'Token '+self.token})
+        print(f"resp: {resp.text}")
+        return resp.text
+       

@@ -19,7 +19,9 @@ def main():
 
     token = os.environ["LUMI_PAYG_TOKEN"]
     client = paygsdk.LumiPaygSdk(token=token)
-    resp = client.create_project(args.project_name, args.language, args.workspace_id)
+    resp = client.create_project(args.project_name, 
+                                 args.language, 
+                                 workspace_id=args.workspace_id)
 
     print(f"{resp}")
 
