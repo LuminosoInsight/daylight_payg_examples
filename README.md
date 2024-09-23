@@ -10,6 +10,7 @@ This repository includes API call examples and sample code for using the Luminos
 
 Once you have signed up you will create a username and password. You can then use that username and password to generate a token to use for the rest of your api calls.
 
+If you have any questions, please contact us at [support@luminoso.com](mailto:support@luminoso.com)
 
 ### token generation
 
